@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>App.controller.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="..\docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>App.controller.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>sap.ui.controller(<span class="hljs-string">"view.App"</span>, {
+
+    onInit:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>init history mgmt</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        jQuery.sap.require(<span class="hljs-string">"jquery.sap.history"</span>);
+        jQuery.sap.history({
+            routes:[
+                {
+                    path:<span class="hljs-string">"page"</span>, handler:jQuery.proxy(<span class="hljs-keyword">this</span>.historyPageHandler, <span class="hljs-keyword">this</span>)
+                }
+            ],
+            defaultHandler:jQuery.proxy(<span class="hljs-keyword">this</span>.historyDefaultHandler, <span class="hljs-keyword">this</span>)
+        });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>subscribe to event bus</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> bus = sap.ui.getCore().getEventBus();
+        bus.subscribe(<span class="hljs-string">"nav"</span>, <span class="hljs-string">"to"</span>, <span class="hljs-keyword">this</span>.navToHandler, <span class="hljs-keyword">this</span>);
+        bus.subscribe(<span class="hljs-string">"nav"</span>, <span class="hljs-string">"to2"</span>, <span class="hljs-keyword">this</span>.navTo2Handler, <span class="hljs-keyword">this</span>);
+        bus.subscribe(<span class="hljs-string">"nav"</span>, <span class="hljs-string">"back"</span>, <span class="hljs-keyword">this</span>.navBackHandler, <span class="hljs-keyword">this</span>);
+
+    },
+
+    historyPageHandler:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(params, navType)</span> </span>{
+        <span class="hljs-keyword">if</span> (params &amp;&amp; params.id) {
+            <span class="hljs-keyword">this</span>.navTo(params.id, <span class="hljs-literal">false</span>, navType, <span class="hljs-literal">null</span>);
+        } <span class="hljs-keyword">else</span> {
+            jQuery.sap.log.error(<span class="hljs-string">"invalid page parameter: "</span> + params);
+        }
+    },
+
+    historyDefaultHandler:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(navType)</span> </span>{
+        <span class="hljs-comment">/*		this.navTo("view.Main", false, navType, null);*/</span>
+        <span class="hljs-keyword">this</span>.navTo(<span class="hljs-string">"view.Main"</span>, <span class="hljs-literal">false</span>, navType, <span class="hljs-literal">null</span>);
+    },
+
+    navToHandler:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(channelId, eventId, data)</span> </span>{
+        <span class="hljs-keyword">if</span> (data &amp;&amp; data.id) {
+            <span class="hljs-keyword">this</span>.navTo(data.id, <span class="hljs-literal">true</span>, <span class="hljs-literal">null</span>, data.data);
+        } <span class="hljs-keyword">else</span> {
+            jQuery.sap.log.error(<span class="hljs-string">"nav-to event cannot be processed. Invalid data: "</span> + data);
+        }
+    },
+
+    navTo2Handler:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(channelId, eventId, data)</span> </span>{
+        <span class="hljs-keyword">if</span> (data &amp;&amp; data.id) {
+            <span class="hljs-keyword">this</span>.navTo2(data.id, <span class="hljs-literal">true</span>, <span class="hljs-literal">null</span>, data.data);
+        } <span class="hljs-keyword">else</span> {
+            jQuery.sap.log.error(<span class="hljs-string">"nav-to event cannot be processed. Invalid data: "</span> + data);
+        }
+    },
+
+    navBackHandler:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(channelId, eventId, data)</span> </span>{
+        jQuery.sap.history.back();
+        jQuery.sap.log.info(<span class="hljs-string">"navBack"</span>);
+    },
+
+    navToSplit:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(sChannelId, sEventId, oData<span class="hljs-comment">/*id, writeHistory, navType, viewId*/</span>)</span> </span>{
+        <span class="hljs-keyword">var</span> app = <span class="hljs-keyword">this</span>.getView().app,
+            sViewName = oData.viewName,
+            sViewId = oData.viewId,
+            oDataObject = oData.data,
+            sNavType = oData.navType,
+            oView;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>if no specific viewId is provided, the navigation id will be used as a viewId. This is used for creating more instances
+of the same view.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (!sViewId) {
+            sViewId = sViewName;
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>check param</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (!sViewId) {
+            jQuery.sap.log.error(<span class="hljs-string">"navTo failed due to insufficient params: "</span> + sViewId);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">var</span> bMaster = (sViewId.indexOf(<span class="hljs-string">"view.CreatePO."</span>) !== -<span class="hljs-number">1</span>);
+
+        <span class="hljs-keyword">if</span> (sNavType === jQuery.sap.history.NavType.Back) {
+            <span class="hljs-keyword">if</span> (bMaster) {
+                app.backMaster();
+            }
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span> (!sap.ui.getCore().byId(sViewId)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>this is the lazy loading of views</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                jQuery.sap.log.info(<span class="hljs-string">"now loading view with name '"</span> + sViewName + <span class="hljs-string">"'"</span>);
+                oView = sap.ui.jsview(sViewId, sViewName);
+                (bMaster) ? app.addMasterPage(oView) : app.addDetailPage(oView);
+            }
+            (bMaster) ? app.toMaster(sViewId, oDataObject) : app.toDetail(sViewId, oDataObject);
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>write history</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (!sNavType &amp;&amp; (bMaster || jQuery.device.is.phone)) {
+            jQuery.sap.history.addHistory(<span class="hljs-string">"page"</span>, {id:sViewId}, <span class="hljs-literal">false</span>);
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>log</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        jQuery.sap.log.info(<span class="hljs-string">"navTo '"</span> + sViewId + <span class="hljs-string">"' ("</span> + (!sNavType &amp;&amp; bMaster) + <span class="hljs-string">","</span> + sNavType + <span class="hljs-string">")"</span>);
+    },
+
+    navTo:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(id, writeHistory, navType, data)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>check param</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (id === <span class="hljs-literal">undefined</span>) {
+            jQuery.sap.log.error(<span class="hljs-string">"navTo failed due to missing id"</span>);
+            <span class="hljs-keyword">return</span>;
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>navigate on app</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> app = <span class="hljs-keyword">this</span>.getView().app;
+        <span class="hljs-keyword">if</span> (navType === jQuery.sap.history.NavType.Back) {
+            app.backToPage(id);
+        } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>lazy load view</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (app.getPage(id) === <span class="hljs-literal">null</span>) {
+                jQuery.sap.log.info(<span class="hljs-string">"now loading page '"</span> + id + <span class="hljs-string">"'"</span>);
+                app.addPage(sap.ui.jsview(id, <span class="hljs-string">"view."</span> + id));
+            }
+            app.to(id, data);
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>write history</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (writeHistory === <span class="hljs-literal">undefined</span> || writeHistory) {
+            jQuery.sap.history.addHistory(<span class="hljs-string">"page"</span>, {id:id}, <span class="hljs-literal">false</span>);
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>log</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        jQuery.sap.log.info(<span class="hljs-string">"navTo '"</span> + id + <span class="hljs-string">"' ("</span> + writeHistory + <span class="hljs-string">","</span> + navType + <span class="hljs-string">")"</span>);
+    },
+
+
+    navTo2:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(id, writeHistory, navType, data)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>check param</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (id === <span class="hljs-literal">undefined</span>) {
+            jQuery.sap.log.error(<span class="hljs-string">"navTo failed due to missing id"</span>);
+            <span class="hljs-keyword">return</span>;
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>navigate on app</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> app = <span class="hljs-keyword">this</span>.getView().app;
+        <span class="hljs-keyword">if</span> (navType === jQuery.sap.history.NavType.Back) {
+            app.backToPage(id);
+        } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>lazy load view</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (app.getPage(id) === <span class="hljs-literal">null</span>) {
+                jQuery.sap.log.info(<span class="hljs-string">"now loading page '"</span> + id + <span class="hljs-string">"'"</span>);
+                app.addPage(sap.ui.jsview(id, <span class="hljs-string">"view."</span> + id));
+            }
+            app.to(id, <span class="hljs-string">"flip"</span>, data);
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>write history</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (writeHistory === <span class="hljs-literal">undefined</span> || writeHistory) {
+            jQuery.sap.history.addHistory(<span class="hljs-string">"page"</span>, {id:id}, <span class="hljs-literal">false</span>);
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>log</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        jQuery.sap.log.info(<span class="hljs-string">"navTo2 '"</span> + id + <span class="hljs-string">"' ("</span> + writeHistory + <span class="hljs-string">","</span> + navType + <span class="hljs-string">")"</span>);
+    }
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

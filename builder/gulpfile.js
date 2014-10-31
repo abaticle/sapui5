@@ -5,8 +5,7 @@ var jshint = require("gulp-jshint");
 var uglify = require("gulp-uglify");
 var clean = require("gulp-clean");
 var notify = require("gulp-notify");
-var jsdoc = require("gulp-jsdoc");
-
+var docco = require("gulp-docco");
 
 var config = {
 
@@ -76,7 +75,8 @@ gulp.task("copy", function () {
 
 gulp.task("doc", function () {
     return gulp.src(config.sourceJS)
-        .pipe(jsdoc(config.doc))
+        .pipe(docco())
+        .pipe(gulp.dest(config.doc))
 })
 
 

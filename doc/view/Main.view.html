@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Main.view.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="..\docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>Main.view.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>jQuery.sap.declare(<span class="hljs-string">"Application"</span>);
+jQuery.sap.require(<span class="hljs-string">"sap.ui.app.Application"</span>);
+jQuery.sap.require(<span class="hljs-string">"sap.m.MessageToast"</span>);
+
+sap.ui.jsview(<span class="hljs-string">"view.Main"</span>, {
+
+	getControllerName: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-string">"view.Main"</span>;
+	},
+
+	onBeforeShow: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+		<span class="hljs-keyword">this</span>.getController().onBeforeShow(evt);
+	},
+
+	createContent: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ctrl)</span> </span>{
+
+		<span class="hljs-keyword">this</span>.page = <span class="hljs-keyword">new</span> sap.m.Page(<span class="hljs-string">"Main.Page"</span>, {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Header</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			customHeader: <span class="hljs-keyword">new</span> sap.m.Bar({
+				contentMiddle: [
+                    <span class="hljs-keyword">new</span> sap.m.Label({
+						text: <span class="hljs-string">"{i18n&gt;APP_NAME}"</span>
+					})
+                ]
+			}),</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Contenu</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			content: [
+				<span class="hljs-keyword">new</span> sap.m.List(<span class="hljs-string">"Main.Menu"</span>, {
+					inset: <span class="hljs-literal">true</span>,
+					items: [
+						<span class="hljs-keyword">new</span> sap.m.StandardListItem(<span class="hljs-string">"Main.Menu.Page"</span>, {
+							title: <span class="hljs-string">"{i18n&gt;PAGE1}"</span>,
+							type: sap.m.ListType.Navigation,
+							tap: [ctrl.onMenuTap, ctrl]
+						})
+					]
+				})
+            ]
+		});
+
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.page;
+	}
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
