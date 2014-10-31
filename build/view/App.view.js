@@ -1,0 +1,1 @@
+sap.ui.jsview("view.App",{getControllerName:function(){return"view.App"},createContent:function(){return this.setHeight("100%"),this.setDisplayBlock(!0),this.app=new sap.m.App,this.app.addPage(sap.ui.jsview("view.Main","view.Main")),this.app}});

@@ -1,0 +1,1 @@
+sap.ui.controller("view.Page.Main",{onInit:function(){this._initContent()},onBeforeShow:function(){},onBackTap:function(){sap.ui.getCore().getEventBus().publish("nav","back")},_initContent:function(){Util.getData("demo",null,function(n,t){console.info(t),n?Util.displayMessage(n.message):Util.setComponentModelData("Page.Main.Text",t)})}});

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML><html><head><meta http-equiv=X-UA-Compatible content="IE=edge"><link type=text/css rel=stylesheet href=app.css><script id=sap-ui-bootstrap type=text/javascript src=https://sapui5.hana.ondemand.com/resources/sap-ui-core.js data-sap-ui-theme=sap_bluecrystal data-sap-ui-libs=sap.m></script><script>
+		sap.ui.localResources("view");
+		
+		jQuery.sap.registerModulePath('ApplicationBase', 'ApplicationBase');
+		jQuery.sap.registerModulePath('Application', 'Application');
+		jQuery.sap.registerModulePath('Config', 'Config');
+		jQuery.sap.registerModulePath('Ext', 'ext/');
+		jQuery.sap.registerModulePath('Language', 'language/');
+		
+		// launch application
+		jQuery.sap.require("Config");
+		jQuery.sap.require("Application");
+		jQuery.sap.require("Ext.Lodash");
+		jQuery.sap.require('Ext.DataUtil');    
+		jQuery.sap.require('Ext.Formatter');       		
+		        
+		var app = new Application({root:"content"});
+	</script><title>Application SAPUI5</title></head><body class=sapUiBody id=content></body></html>

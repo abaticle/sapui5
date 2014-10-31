@@ -1,0 +1,1 @@
+var Formatter={exempleFormatter:function(t){return t+" test !"}};

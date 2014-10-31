@@ -1,0 +1,1 @@
+var config={localMode:!0,localDomain:"data/",SAPDomain:"",demo:{url:"demo.json"}};
