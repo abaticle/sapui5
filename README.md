@@ -1,8 +1,23 @@
 sapui5_template
-Template pour application SAPUI5 :
 
-Une page d'accueil avec un menu menant vers une page vide
-Une classe Util, avec une méthode getData pour effectuer une requête AJAX
-Une classe Formatter utilisée pour formatter des textes
-Un fichier Config.js, contenant les url accessible. Une variable localMode permet d'utiliser l'application sur un poste en local
-Deux fichiers pour les langues, chargés lors du lancement de l'application
+Prerequisites :
+
+- NodeJS
+- Gulp
+	To install Gulp : 
+	npm -install gulp -g
+
+
+Folders :
+
+- source : contain source files
+- build : contain build files (minified for CSS/HTML/JS)
+- builder : source code for launching main tasks
+- doc : contain source documentation
+- exe : contain Node-Webkit generated executable
+
+How it works :
+
+- To launch the build process, execute Build.bat
+- To launch the node webkit build process, execute NodeWebkit.bat
+
