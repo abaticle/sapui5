@@ -1,8 +1,15 @@
+/**
+ * Utility class
+ *
+ * @class Util
+ */
 var Util = {
 
     /**
      * Display toast message from language file, or directly the message if not found
-     * @param  {[type]} message
+     *
+     * @method displayMessage
+     * @param  {String} Text id from language file
      */
     displayMessage: function (message) {
         sap.m.MessageToast.show(this.getText(message));
@@ -10,8 +17,10 @@ var Util = {
 
     /**
      * Get text from language file. If not found, return textId
-     * @param  {[type]} textId
-     * @return {[type]} text
+     *
+     * @method getText
+     * @param  {String} textId Text id from language file
+     * @return {String} Text from language file
      */
     getText: function (textId) {
         var text;
@@ -27,8 +36,10 @@ var Util = {
 
     /**
      * Set component model with data
-     * @param {[type]} Component id
-     * @param {[type]} Data for the model
+     *
+     * @method setComponentModelData
+     * @param {String} modelId Component id
+     * @param {data} data Data of this component model
      */
     setComponentModelData: function (modelId, data) {
         var component = this.byId(modelId);
@@ -49,18 +60,22 @@ var Util = {
 
     /**
      * Shortcut for sap.ui.getCore().byId function
-     * @param  {[type]} id
-     * @return {[type]} SAPUI5 component
+     *
+     * @method byId
+     * @param  {type} Component id
+     * @return {type} SAPUI5 component
      */
     byId: function (id) {
         return sap.ui.getCore().byId(id);
     },
 
     /**
-     * Get data from distant JSON file
-     * @param  {[type]}   dataName coming from Config.js
-     * @param  {[type]}   url parameters to be added on the request
-     * @param  {Function} callback(error, data)
+     * Get data from JSON file
+     * @async
+     * @method getData
+     * @param  {String}   dataName dataName coming from Config.js
+     * @param  {String}   param url parameters to be added on the request
+     * @param  {Function} callback Return a function with (error, data)
      */
     getData: function (dataName, param, callback) {
 
@@ -96,9 +111,10 @@ var Util = {
 
     /**
      * Display loading popup
-     * @param  {[type]} title, if not "Loading"
-     * @param  {[type]} text, if not "Loading in progress"
-     * @return {[type]}
+     *
+     * @method loadStart
+     * @param  {String} title Text for box title, if not set "Loading"
+     * @param  {String} text Text for box content, if not set "Loading in progress"
      */
     loadStart: function (title, text) {
 
@@ -121,8 +137,10 @@ var Util = {
     },
 
 
-    /*
-     *	Fermeture de la boîte de chargement
+    /**
+     * Remove loading popup
+     *
+     * @method loadEnd
      */
     loadEnd: function () {
         var busyDialog = sap.ui.getCore().byId("BusyDialog");

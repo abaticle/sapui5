@@ -1,3 +1,8 @@
+/**
+ * Page
+ *
+ * @class Page.view
+ */
 sap.ui.jsview("view.Page.Main", {
 
     getControllerName: function () {

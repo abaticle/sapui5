@@ -1,0 +1,20 @@
+{
+
+    "source": "../source/",
+    "build": "../build/",
+    "doc": "../doc",
+
+    "sourceJS": "../source/**/*.js",
+    "sourceHTML": [
+        "../source/**/*.html",
+        "../source/**/*.htm"
+    ],
+    "sourceCSS": "../source/**/*.css",
+    "sourceCopy": [
+        "../source/**/*.json",
+        "../source/**/*.properties",
+        "../source/**/*.png",
+        "../source/**/*.jpg",
+        "../source/**/*.jpeg"
+    ]
+}

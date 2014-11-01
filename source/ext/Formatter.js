@@ -1,7 +1,18 @@
+/**
+ * Formatter class
+ *
+ * @class Formatter
+ */
 var Formatter = {
 
-	exempleFormatter: function (value) {
-		return value + " test !";
-	}
+    /**
+     * Formatter example
+     *
+     * @method exempleFormatter
+     * @param  {String} value
+     */
+    exempleFormatter: function (value) {
+        return value + " test !";
+    }
 
 }

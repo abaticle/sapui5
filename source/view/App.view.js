@@ -1,10 +1,10 @@
 sap.ui.jsview("view.App", {
 
-    getControllerName:function () {
+    getControllerName: function () {
         return "view.App";
     },
 
-    createContent:function (oCon) {
+    createContent: function (oCon) {
 
         this.setHeight("100%");
         this.setDisplayBlock(true);

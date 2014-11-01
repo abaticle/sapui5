@@ -1,16 +1,15 @@
 sap.ui.controller("view.App", {
 
-    onInit:function () {
+    onInit: function () {
 
         // init history mgmt
         jQuery.sap.require("jquery.sap.history");
         jQuery.sap.history({
-            routes:[
-                {
-                    path:"page", handler:jQuery.proxy(this.historyPageHandler, this)
-                }
-            ],
-            defaultHandler:jQuery.proxy(this.historyDefaultHandler, this)
+            routes: [{
+                path: "page",
+                handler: jQuery.proxy(this.historyPageHandler, this)
+            }],
+            defaultHandler: jQuery.proxy(this.historyDefaultHandler, this)
         });
 
         // subscribe to event bus
@@ -21,7 +20,7 @@ sap.ui.controller("view.App", {
 
     },
 
-    historyPageHandler:function (params, navType) {
+    historyPageHandler: function (params, navType) {
         if (params && params.id) {
             this.navTo(params.id, false, navType, null);
         } else {
@@ -29,12 +28,12 @@ sap.ui.controller("view.App", {
         }
     },
 
-    historyDefaultHandler:function (navType) {
+    historyDefaultHandler: function (navType) {
         /*		this.navTo("view.Main", false, navType, null);*/
         this.navTo("view.Main", false, navType, null);
     },
 
-    navToHandler:function (channelId, eventId, data) {
+    navToHandler: function (channelId, eventId, data) {
         if (data && data.id) {
             this.navTo(data.id, true, null, data.data);
         } else {
@@ -42,7 +41,7 @@ sap.ui.controller("view.App", {
         }
     },
 
-    navTo2Handler:function (channelId, eventId, data) {
+    navTo2Handler: function (channelId, eventId, data) {
         if (data && data.id) {
             this.navTo2(data.id, true, null, data.data);
         } else {
@@ -50,12 +49,12 @@ sap.ui.controller("view.App", {
         }
     },
 
-    navBackHandler:function (channelId, eventId, data) {
+    navBackHandler: function (channelId, eventId, data) {
         jQuery.sap.history.back();
         jQuery.sap.log.info("navBack");
     },
 
-    navToSplit:function (sChannelId, sEventId, oData/*id, writeHistory, navType, viewId*/) {
+    navToSplit: function (sChannelId, sEventId, oData /*id, writeHistory, navType, viewId*/ ) {
         var app = this.getView().app,
             sViewName = oData.viewName,
             sViewId = oData.viewId,
@@ -93,14 +92,16 @@ sap.ui.controller("view.App", {
 
         // write history
         if (!sNavType && (bMaster || jQuery.device.is.phone)) {
-            jQuery.sap.history.addHistory("page", {id:sViewId}, false);
+            jQuery.sap.history.addHistory("page", {
+                id: sViewId
+            }, false);
         }
 
         // log
         jQuery.sap.log.info("navTo '" + sViewId + "' (" + (!sNavType && bMaster) + "," + sNavType + ")");
     },
 
-    navTo:function (id, writeHistory, navType, data) {
+    navTo: function (id, writeHistory, navType, data) {
 
         // check param
         if (id === undefined) {
@@ -123,7 +124,9 @@ sap.ui.controller("view.App", {
 
         // write history
         if (writeHistory === undefined || writeHistory) {
-            jQuery.sap.history.addHistory("page", {id:id}, false);
+            jQuery.sap.history.addHistory("page", {
+                id: id
+            }, false);
         }
 
         // log
@@ -131,7 +134,7 @@ sap.ui.controller("view.App", {
     },
 
 
-    navTo2:function (id, writeHistory, navType, data) {
+    navTo2: function (id, writeHistory, navType, data) {
 
         // check param
         if (id === undefined) {
@@ -154,7 +157,9 @@ sap.ui.controller("view.App", {
 
         // write history
         if (writeHistory === undefined || writeHistory) {
-            jQuery.sap.history.addHistory("page", {id:id}, false);
+            jQuery.sap.history.addHistory("page", {
+                id: id
+            }, false);
         }
 
         // log
