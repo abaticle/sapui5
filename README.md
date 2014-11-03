@@ -4,8 +4,8 @@ Prerequisites :
 
 - NodeJS
 - Gulp
-	To install Gulp : 
-	npm -install gulp -g
+
+npm -install gulp -g
 
 
 Folders :
