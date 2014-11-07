@@ -28,8 +28,8 @@ npm -install gulp -g
 
 ##What the SAPUI5 application contains :
 
-- Some custom functions in the ```ext/DataUtil.js``` file
+- Some custom functions in the **ext/DataUtil.js** file
 - The [Lodash](https://lodash.com/) tool library
 - FR and EN languages properties files
 - Two controller/views to have an example of navigation
-- An example of data loading for ```data/demo.json```
+- An example of data loading for **data/demo.json**
